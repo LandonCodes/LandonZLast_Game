@@ -2,7 +2,6 @@
 import pygame as pie
 from pygame.sprite import Sprite
 
-vec = pie.math.Vector2
 
 class Platform(Sprite):
     def __init__(self, x, y, width, height, color, variant):
