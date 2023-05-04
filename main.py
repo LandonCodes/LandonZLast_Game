@@ -16,18 +16,16 @@ class Game:
     def __init__(self):
         self.screen = pie.display.set_mode((WIDTH, HEIGHT))
         pie.display.set_caption("Breakout")
-        self.screen.fill(BLACK)
+        self.screen.fill(WHITE)
         self.clock = pie.time.Clock()
         self.running = True
     def new(self):
         self.score = 0
         self.all_sprites = pie.sprite.Group()
         self.platforms = pie.sprite.Group()
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
+        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "base")
         self.all_sprites.add(self.plat1)
 
-        self.platforms.add(self.plat1)
-        
 
 g = Game()
 
