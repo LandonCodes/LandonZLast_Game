@@ -40,7 +40,7 @@ class Player(Sprite):
         #     else:
         #         PAUSED = False
         #         print(PAUSED)
-    # ...
+    # making sure that when jumping player touching the platform 
     def jump(self):
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)

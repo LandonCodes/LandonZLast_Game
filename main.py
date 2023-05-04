@@ -1,5 +1,5 @@
 # Code created by Landon Zafiropoulo
-# Starting from working code
+# Starting from working
 '''
 create a breakout gameself
 create a restart button
@@ -42,11 +42,7 @@ class Game:
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.player = Player(self)
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        self.all_sprites.add(self.plat1)
-
-        self.platforms.add(self.plat1)
-        
+        #for all the platforms in settings put them in the screen
         self.all_sprites.add(self.player)
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
@@ -101,7 +97,7 @@ class Game:
   
 
     def draw(self):
-        self.screen.fill(BLUE)
+        self.screen.fill(BLACK)
         #prints score color white but only score does not update the numbers
         self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
         #self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
