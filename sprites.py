@@ -14,7 +14,7 @@ class Player(Sprite):
         Sprite.__init__(self)
         # these are the properties
         self.game = game
-        self.image = pg.Surface((200,20))
+        self.image = pg.Surface((150,20))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.pos = vec(WIDTH/2, HEIGHT-45)
@@ -28,7 +28,7 @@ class Player(Sprite):
             self.acc.x = -PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
-    
+
     def inbounds(self):
         pass
     def update(self):
@@ -50,7 +50,7 @@ class Mob(Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         #self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(100, 100)
+        self.pos = vec(400, 300)
         self.vel = vec(randint(5,10),randint(5,10))
         self.acc = vec(1,1)
         self.cofric = 0.01
@@ -63,21 +63,21 @@ class Mob(Sprite):
         if self.rect.y < 0:
             self.vel.y *= -1
         if self.rect.y > HEIGHT:
-            self.vel.y *= -1
+            print("Game over")
+ 
     def update(self):
         self.inbounds()
         hit = pg.sprite.collide_rect(self, self.game.player)
         if hit:
             print("I hit the " + str(self.game.player))
-            # self.vel.x *= -1
             self.vel.y *= -1
         hit_plat = pg.sprite.spritecollide(self, self.game.platforms, True)
         self.pos += self.vel
         self.rect.center = self.pos
-        mhits = pg.sprite.spritecollide(self, self.game.platforms, True)
+        #when mob hits platform it reverses its y direction
+        mhits = pg.sprite.spritecollide(self, self.game.platforms, False)
         if mhits:
-            print("I hit the platform")
-            self.vel.y *= 1 
+            self.vel.y *= -1 
 
 # new platform class
 class Platform(Sprite):

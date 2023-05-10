@@ -1,8 +1,9 @@
 # Code created by Landon Zafiropoulo
 # Starting from working
 '''
-create a breakout gameself 
+create a breakout game
 create a restart button
+
 
 '''
 
@@ -73,11 +74,11 @@ class Game:
     def update(self):
         self.all_sprites.update()  
 
-
     def draw(self):
         self.screen.fill(BLACK)
         #prints score color white but only score does not update the numbers
         # self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text(str("Game Over"), 30, WHITE, WIDTH/2, HEIGHT/2)
         #self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
         # is this a method or a function?
