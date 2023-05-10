@@ -37,9 +37,10 @@ class Game:
         print(self.screen)
     def new(self):
         # starting a new game
-        self.score = 0
+        #  self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
+        self.floor = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.player = Player(self)
         #for all the platforms in settings put them in the screen
@@ -48,10 +49,9 @@ class Game:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        for i in range(0,10):
-            m = Mob(20,20,(0,255,0))
-            self.all_sprites.add(m)
-            self.enemies.add(m)
+        self.ball = Mob(self, 20, 20, (0,255,0))
+        self.all_sprites.add(self.ball)
+        self.enemies.add(self.ball)
         self.run()
     def run(self):
         self.playing = True
@@ -71,35 +71,13 @@ class Game:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
     def update(self):
-        self.all_sprites.update()
-        #when the player collides with the enimies it reconizges that they collided and adds +1 point to score
-        mhits = pg.sprite.spritecollide(self.player, self.enemies, True)
-        if mhits:
-            #adds the point
-            self.score += 1
-           # print(self.score)
-        if self.score > 8 :
-            mhits = self.score = 10
-            print("You Win!")
+        self.all_sprites.update()  
 
-        if self.player.vel.y > 0:
-            hits = pg.sprite.spritecollide(self.player, self.platforms, False)
-            if hits:
-                if hits[0].variant == "disappearing":
-                    hits[0].kill()
-                elif hits[0].variant == "bouncey":
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = -PLAYER_JUMP
-                else:
-                    self.player.pos.y = hits[0].rect.top
-                    self.player.vel.y = 0
-
-  
 
     def draw(self):
         self.screen.fill(BLACK)
         #prints score color white but only score does not update the numbers
-        self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
+        # self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
         #self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
         # is this a method or a function?
