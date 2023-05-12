@@ -14,7 +14,8 @@ import sys
 # import settings 
 from settings import *
 from sprites import *
-# from pg.sprite import Sprite
+# from pg.sprite import Sprite 
+# Name what I worked on a block of code then the screen shot
 
 
 
@@ -30,12 +31,14 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("my game")
+        pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.running = True
         #sets score to zero when the game starts
         self.score = 0
         print(self.screen)
+        self.died = True
+
     def new(self):
         # starting a new game
         #  self.score = 0
@@ -76,13 +79,37 @@ class Game:
 
     def draw(self):
         self.screen.fill(BLACK)
-        #prints score color white but only score does not update the numbers
-        # self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
-        self.draw_text(str("Game Over"), 30, WHITE, WIDTH/2, HEIGHT/2)
-        #self.draw_text(str(self.score), 30, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
-        # is this a method or a function?
         pg.display.flip()
+
+    def show_start_screen(self):
+        self.screen.fill(BLUE)
+            # self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Press a any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 4)
+        pg.display.flip()
+        self.wait_for_key()
+
+    def show_go_screen(self):
+        if not self.running:
+            return
+        # self.screen.fill(BLACK)
+        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        pg.display.flip()
+        self.wait_for_key()
+
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.running = False
+                if event.type == pg.KEYDOWN:
+                    waiting = False
+                    
+    
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -94,9 +121,10 @@ class Game:
         x,y = pg.mouse.get_pos()
         return (x,y)
 g = Game()
-
+g.show_start_screen()
 # kick off the game loop
 while g.running:
     g.new()
+    g.show_go_screen
 
 pg.quit()

@@ -51,7 +51,7 @@ class Mob(Sprite):
         self.rect = self.image.get_rect()
         #self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(400, 300)
-        self.vel = vec(randint(5,10),randint(5,10))
+        self.vel = vec(randint(6,15),randint(6,15))
         self.acc = vec(1,1)
         self.cofric = 0.01
     # ...
@@ -63,6 +63,7 @@ class Mob(Sprite):
         if self.rect.y < 0:
             self.vel.y *= -1
         if self.rect.y > HEIGHT:
+            self.running = False
             print("Game over")
  
     def update(self):

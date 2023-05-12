@@ -14,15 +14,16 @@ PAUSED = False
 PLAYER_ACC  = 2
 PLAYER_FRICTION = -0.12
 MOB_FRICTION = -0.7
-MOB_ACC= 0.7
+MOB_ACC= 0.9
 PLAYER_GRAV = 1
 PLAYER_JUMP = 30
-################ colors ##################
+################ colors/text ##################
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (50,50,255)
 RED = (255,50,50)
 PURPLE = (160,32,240)
+TITLE = "Breakout"
 ########## Starting platforms ############
 PLATFORM_LIST = [(30, 40, 170, 50, (255,50,50), "disappearing"),
                  (220, 40, 170, 50, (255,50,50), "disappearing"),
