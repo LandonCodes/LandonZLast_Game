@@ -3,8 +3,7 @@
 #most proud of and most challenging
 
 '''
-create a breakout game
-create a restart button
+create a breakout game, with start screen, You Lose after dying and restart button
 '''
 # import libs
 import pygame as pg
@@ -27,6 +26,7 @@ class Game:
         pg.display.set_caption("BREAKOUT")
         self.clock = pg.time.Clock()
         self.running = True
+        self.gameover = False
 
     def new(self):
         # starting a new game
@@ -62,29 +62,24 @@ class Game:
     #update the sprites and check when player passes bottom of screen
     def update(self):
         self.all_sprites.update()  
-        if self.player.pos.y > HEIGHT:
-            self.gameover = False  
+        if self.ball.rect.y > HEIGHT:
+            self.gameover = True  
     #draws screen black
     def draw(self):
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
-        pg.display.flip()
+        if self.gameover == True:
+            self.draw_text("GAME OVER!", 22, WHITE, WIDTH / 2, HEIGHT / 6)
+            pg.display.flip()
+            self.wait_for_key()
     #start screen
     def show_start_screen(self):
         self.screen.fill(BLUE)
         self.draw_text("Press any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("BREAKOUT", 22, WHITE, WIDTH / 2, HEIGHT / 6)
         pg.display.flip()
         self.wait_for_key()
-    #restart screen
-    def show_go_screen(self):
-        if self.gameover == False:
-            return
-        # self.screen.fill(BLACK)
-        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
-        pg.display.flip()
-        self.wait_for_key()
-    #def "wait_for_key"
+ 
     def wait_for_key(self):
         waiting = True
         while waiting:
@@ -95,7 +90,6 @@ class Game:
                     self.running = False
                 if event.type == pg.KEYDOWN:
                     waiting = False
-
     #sets up text
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
@@ -107,8 +101,8 @@ class Game:
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
         return (x,y)
+    
 g = Game()
-
 g.show_start_screen()
 # kick off the game loop
 while g.running:

@@ -61,7 +61,6 @@ class Mob(Sprite):
         # if self.rect.y > HEIGHT:
         #     self.vel.y += 1
 
- 
     def update(self):
         self.inbounds()
         hit = pg.sprite.collide_rect(self, self.game.player)
@@ -75,6 +74,7 @@ class Mob(Sprite):
         mhits = pg.sprite.spritecollide(self, self.game.platforms, False)
         if mhits:
             self.vel.y *= -1 
+    
 
 # new platform class
 class Platform(Sprite):
