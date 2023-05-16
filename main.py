@@ -3,10 +3,7 @@
 '''
 create a breakout game
 create a restart button
-
-
 '''
-
 # import libs
 import pygame as pg
 import os
@@ -14,10 +11,6 @@ import sys
 # import settings 
 from settings import *
 from sprites import *
-# from pg.sprite import Sprite 
-# Name what I worked on a block of code then the screen shot
-
-
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
@@ -31,17 +24,10 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.running = True
-        #sets score to zero when the game starts
-        self.score = 0
-        print(self.screen)
-        self.died = True
 
     def new(self):
-        # starting a new game
-        #  self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.floor = pg.sprite.Group()
@@ -66,37 +52,25 @@ class Game:
             self.draw()
     
     def events(self):
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                if self.playing:
-                    self.playing = False
-                self.running = False
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE:
-                    self.player.jump()
+        pass
+        # for event in pg.event.get():
+        #     if event.type == pg.QUIT:
+        #         if self.playing:
+        #             self.playing = False
+        #         self.running = False
+        #     # if event.type == pg.KEYDOWN:
+        #     #     if event.key == pg.K_SPACE:
+        #     #         self.player.jump()
+#################### PROBLEM HERE ##############################
     def update(self):
-        self.all_sprites.update()  
+        self.all_sprites.update() 
+        if self.player.rect.y > HEIGHT:
+            self.game_over = False            
 
     def draw(self):
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
-
-    def show_start_screen(self):
-        self.screen.fill(BLUE)
-            # self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Press a any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 4)
-        pg.display.flip()
-        self.wait_for_key()
-
-    def show_go_screen(self):
-        if not self.running:
-            return
-        # self.screen.fill(BLACK)
-        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
-        pg.display.flip()
-        self.wait_for_key()
 
     def wait_for_key(self):
         waiting = True
@@ -108,8 +82,22 @@ class Game:
                     self.running = False
                 if event.type == pg.KEYDOWN:
                     waiting = False
+
+    def show_start_screen(self):
+        self.screen.fill(BLUE)
+        self.draw_text("Breakout", 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Press any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 6)
+        pg.display.flip()
+        self.wait_for_key()
+################### PROBLEM HERE ###########################
+    def show_go_screen(self):
+        if self.game_over == False:
+            return
+        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        pg.display.flip()
+        self.wait_for_key()
                     
-    
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)

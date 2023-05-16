@@ -23,7 +23,6 @@ WHITE = (255,255,255)
 BLUE = (50,50,255)
 RED = (255,50,50)
 PURPLE = (160,32,240)
-TITLE = "Breakout"
 ########## Starting platforms ############
 PLATFORM_LIST = [(30, 40, 170, 50, (255,50,50), "disappearing"),
                  (220, 40, 170, 50, (255,50,50), "disappearing"),

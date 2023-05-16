@@ -3,11 +3,7 @@ import pygame as pg
 from pygame.sprite import Sprite
 from settings import *
 from random import randint
-
-
 vec = pg.math.Vector2
-
-# player class
 
 class Player(Sprite):
     def __init__(self, game):
@@ -62,9 +58,8 @@ class Mob(Sprite):
             self.vel.x *= -1
         if self.rect.y < 0:
             self.vel.y *= -1
-        if self.rect.y > HEIGHT:
-            self.running = False
-            print("Game over")
+        # if self.rect.y > HEIGHT:
+        #     self.vel.y += 1
  
     def update(self):
         self.inbounds()
