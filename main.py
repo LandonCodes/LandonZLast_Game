@@ -1,5 +1,7 @@
 # Code created by Landon Zafiropoulo
 # Starting from working
+#most proud of and most challenging
+
 '''
 create a breakout game
 create a restart button
@@ -15,19 +17,19 @@ from sprites import *
 # set up assets folders
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
-
 # create game class in order to pass properties to the sprites file
-
 class Game:
     def __init__(self):
         # init game window etc.
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        pg.display.set_caption("BREAKOUT")
         self.clock = pg.time.Clock()
         self.running = True
 
     def new(self):
+        # starting a new game
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.floor = pg.sprite.Group()
@@ -52,26 +54,37 @@ class Game:
             self.draw()
     
     def events(self):
-        pass
-        # for event in pg.event.get():
-        #     if event.type == pg.QUIT:
-        #         if self.playing:
-        #             self.playing = False
-        #         self.running = False
-        #     # if event.type == pg.KEYDOWN:
-        #     #     if event.key == pg.K_SPACE:
-        #     #         self.player.jump()
-#################### PROBLEM HERE ##############################
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+    #update the sprites and check when player passes bottom of screen
     def update(self):
-        self.all_sprites.update() 
-        if self.player.rect.y > HEIGHT:
-            self.game_over = False            
-
+        self.all_sprites.update()  
+        if self.player.pos.y > HEIGHT:
+            self.gameover = False  
+    #draws screen black
     def draw(self):
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
-
+    #start screen
+    def show_start_screen(self):
+        self.screen.fill(BLUE)
+        self.draw_text("Press any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 4)
+        pg.display.flip()
+        self.wait_for_key()
+    #restart screen
+    def show_go_screen(self):
+        if self.gameover == False:
+            return
+        # self.screen.fill(BLACK)
+        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        pg.display.flip()
+        self.wait_for_key()
+    #def "wait_for_key"
     def wait_for_key(self):
         waiting = True
         while waiting:
@@ -83,21 +96,7 @@ class Game:
                 if event.type == pg.KEYDOWN:
                     waiting = False
 
-    def show_start_screen(self):
-        self.screen.fill(BLUE)
-        self.draw_text("Breakout", 48, WHITE, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Press any key to play", 22, WHITE, WIDTH / 2, HEIGHT / 6)
-        pg.display.flip()
-        self.wait_for_key()
-################### PROBLEM HERE ###########################
-    def show_go_screen(self):
-        if self.game_over == False:
-            return
-        self.draw_text("GAME OVER", 30, RED, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Type to Restart", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
-        pg.display.flip()
-        self.wait_for_key()
-                    
+    #sets up text
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -109,6 +108,7 @@ class Game:
         x,y = pg.mouse.get_pos()
         return (x,y)
 g = Game()
+
 g.show_start_screen()
 # kick off the game loop
 while g.running:

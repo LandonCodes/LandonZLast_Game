@@ -50,7 +50,7 @@ class Mob(Sprite):
         self.vel = vec(randint(6,15),randint(6,15))
         self.acc = vec(1,1)
         self.cofric = 0.01
-    # ...
+
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
@@ -60,6 +60,7 @@ class Mob(Sprite):
             self.vel.y *= -1
         # if self.rect.y > HEIGHT:
         #     self.vel.y += 1
+
  
     def update(self):
         self.inbounds()

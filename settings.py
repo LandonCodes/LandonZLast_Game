@@ -1,4 +1,4 @@
-# FIle create by Landon Zafiropoulo
+# File create by Landon Zafiropoulo
 
 ########## screen dimensions #############
 WIDTH = 800
