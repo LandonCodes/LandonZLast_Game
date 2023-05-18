@@ -25,6 +25,7 @@ class Game:
         pg.display.set_caption("BREAKOUT")
         self.clock = pg.time.Clock()
         self.running = True
+        #make sefl.gameover false so below when it becmes true it works
         self.gameover = False
 
     def new(self):
@@ -80,6 +81,7 @@ class Game:
         self.draw_text("Press any key to play", 20, WHITE, WIDTH / 2, HEIGHT / 4)
         self.draw_text("BREAKOUT", 20, WHITE, WIDTH / 2, HEIGHT / 6)
         pg.display.flip()
+        #Wait for person to press key
         self.wait_for_key()
 #sets up the _wait_for_key which allows the start screen to open the game and it waits for one to click a key
     def wait_for_key(self):
