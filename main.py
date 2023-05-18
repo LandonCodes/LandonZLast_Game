@@ -1,6 +1,7 @@
 #Code created by Landon Zafiropoulo
 # Starting from working
 #most proud of and most challenging
+# Sources: Mr. Cozort, Rocco Reg (both helped)
 '''
 create a breakout game, with start screen, You Lose after dying and restart button
 '''
