@@ -25,8 +25,6 @@ class Player(Sprite):
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
 
-    def inbounds(self):
-        pass
     def update(self):
         self.acc = vec(0, 0)
         self.acc.x = self.vel.x * PLAYER_FRICTION
@@ -45,7 +43,6 @@ class Mob(Sprite):
         self.color = color
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
-        #self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(400, 300)
         self.vel = vec(randint(6,15),randint(6,15))
         self.acc = vec(1,1)
@@ -58,14 +55,12 @@ class Mob(Sprite):
             self.vel.x *= -1
         if self.rect.y < 0:
             self.vel.y *= -1
-        # if self.rect.y > HEIGHT:
-        #     self.vel.y += 1
 
     def update(self):
         self.inbounds()
+        #when ball hits the player it reverses its y direction
         hit = pg.sprite.collide_rect(self, self.game.player)
         if hit:
-            print("I hit the " + str(self.game.player))
             self.vel.y *= -1
         hit_plat = pg.sprite.spritecollide(self, self.game.platforms, True)
         self.pos += self.vel
@@ -74,7 +69,6 @@ class Mob(Sprite):
         mhits = pg.sprite.spritecollide(self, self.game.platforms, False)
         if mhits:
             self.vel.y *= -1 
-    
 
 # new platform class
 class Platform(Sprite):
